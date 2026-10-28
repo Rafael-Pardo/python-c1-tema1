@@ -13,6 +13,7 @@ a la API de ipify.org, un servicio estable que proporciona la IP pública.
 """
 
 import requests
+from typing import Optional
 
 def get_user_ip():
     """
@@ -28,7 +29,15 @@ def get_user_ip():
     # 2. Verificar si la petición fue exitosa (código 200)
     # 3. Devolver el texto de la respuesta directamente (contiene la IP)
     # 4. Devolver None si hay algún error
-    pass
+    try:
+        response = requests.get('https://api.ipify.org')
+        if response.status_code == 200:
+            return response.text
+        return None
+    except Exception as e:
+        print(f"Error al obtener la IP: {e}")
+        return None
+
 
 if __name__ == "__main__":
     # Ejemplo de uso de la función
